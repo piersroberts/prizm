@@ -1,0 +1,10 @@
+{
+  "name": "prizm",
+  "workspaces": [
+    "./packages/*",
+    "./apps/*"
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@prizm/prizm",
+  "version": "1.0.0",
+  "main": "src/main.ts",
+  "scripts": {
+    "test": "vitest --environment jsdom"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "canvas": "^3.1.0",
+    "jsdom": "^26.0.0",
+    "vitest": "^3.0.6"
+  }
+}
