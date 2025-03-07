@@ -2,13 +2,29 @@ import type { FontCharacter } from "./Font";
 import type { Coords, Screen } from "./Screen";
 import { pointInPolygon, pointInTriangle } from "./lib/maths";
 
+/**
+ * A graphics object is used to draw shapes and text to the screen.
+ *
+ * @class Graphics
+ */
 export class Graphics {
-  screen;
+  private screen: Screen;
 
+  /**
+   * Creates an instance of Graphics.
+   *
+   * @param {Screen} screen - The screen to draw to.
+   */
   constructor(screen: Screen) {
     this.screen = screen;
   }
 
+  /**
+   * Set a pixel in the buffer.
+   *
+   * @param coords
+   * @param color
+   */
   private setPixel(coords: Coords, color = 1) {
     // Set a pixel in the buffer
     const [x, y] = coords;
@@ -62,6 +78,13 @@ export class Graphics {
     this.screen.pixelBuffer.paste(attributePixelCoords, attributeRegionPixels);
   }
 
+  /**
+   * Draw a line to the buffer.
+   *
+   * @param startCoords
+   * @param endCoords
+   * @param color
+   */
   public drawLine(startCoords: Coords, endCoords: Coords, color = 1) {
     // Convert the coordinates to integers
     const roundedStartCoords: Coords = [
@@ -98,6 +121,14 @@ export class Graphics {
     }
   }
 
+  /**
+   * Draw a triangle to the buffer.
+   *
+   * @param point1
+   * @param point2
+   * @param point3
+   * @param color
+   */
   public drawTriangle(
     point1: Coords,
     point2: Coords,
@@ -111,6 +142,12 @@ export class Graphics {
     this.drawLine(point3, point1, color);
   }
 
+  /**
+   * Draw a polygon to the buffer.
+   *
+   * @param points
+   * @param color
+   */
   public drawPolygon(points: Array<Coords>, color = 1) {
     // Draw a polygon to the buffer
     for (let i = 0; i < points.length; i++) {
@@ -120,7 +157,14 @@ export class Graphics {
     }
   }
 
-  drawCircle(coords: Coords, radius: number, color = 1) {
+  /**
+   * Draw a circle to the buffer.
+   *
+   * @param coords
+   * @param radius
+   * @param color
+   */
+  public drawCircle(coords: Coords, radius: number, color = 1) {
     const [x0, y0] = coords;
     // Draw a circle to the buffer
     let x = radius - 1;
@@ -152,7 +196,14 @@ export class Graphics {
     }
   }
 
-  fillCircle(coords: Coords, radius: number, color = 1) {
+  /**
+   * Fill a circle in the buffer.
+   *
+   * @param coords
+   * @param radius
+   * @param color
+   */
+  public fillCircle(coords: Coords, radius: number, color = 1) {
     const [x0, y0] = coords;
     let x = radius;
     let y = 0;
@@ -178,6 +229,14 @@ export class Graphics {
     }
   }
 
+  /**
+   * Draw a rectangle to the buffer.
+   *
+   * @param coords
+   * @param width
+   * @param height
+   * @param color
+   */
   public drawRect(coords: Coords, width: number, height: number, color = 1) {
     const [x, y] = coords;
     // Draw a rectangle to the buffer
@@ -187,6 +246,13 @@ export class Graphics {
     this.drawLine([x, y + height], [x, y], color);
   }
 
+  /**
+   * Fill a rectangle in the buffer.
+   * @param coords
+   * @param width
+   * @param height
+   * @param color
+   */
   public fillRect(coords: Coords, width: number, height: number, color = 1) {
     const [x, y] = coords;
     // Fill a rectangle in the buffer
@@ -197,6 +263,15 @@ export class Graphics {
     }
   }
 
+  /**
+   * Draw an arc to the buffer.
+   *
+   * @param coords
+   * @param radius
+   * @param startAngle
+   * @param endAngle
+   * @param color
+   */
   public drawArc(
     coords: Coords,
     radius: number,
@@ -213,11 +288,24 @@ export class Graphics {
     }
   }
 
+  /**
+   * Clear the buffer.
+   *
+   * @param color
+   */
   public clear(color = 0) {
     // Clear the buffer
     this.screen.pixelBuffer.fill(color);
   }
 
+  /**
+   * Fill a triangle in the buffer.
+   *
+   * @param point1
+   * @param point2
+   * @param point3
+   * @param color
+   */
   public fillTriangle(
     point1: Coords,
     point2: Coords,
@@ -242,6 +330,12 @@ export class Graphics {
     }
   }
 
+  /**
+   * Fill a polygon in the buffer.
+   *
+   * @param points
+   * @param color
+   */
   public fillPolygon(points: Array<Coords>, color = 1) {
     // Fill a polygon in the buffer
 
@@ -258,7 +352,11 @@ export class Graphics {
       }
     }
   }
-
+  /**
+   * Fill the buffer with noise.
+   *
+   * @param color
+   */
   public fillNoise(color = 1) {
     // Fill the buffer with noise
     for (let y = 0; y < this.screen.pixelBuffer.height; y++) {
@@ -268,7 +366,16 @@ export class Graphics {
     }
   }
 
-  drawCharacter(
+  /**
+   * Draw a character to the buffer.
+   *
+   * @param character
+   * @param x
+   * @param y
+   * @param width
+   * @param height
+   */
+  public drawCharacter(
     character: FontCharacter,
     x: number,
     y: number,

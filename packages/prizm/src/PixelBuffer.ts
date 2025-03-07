@@ -1,14 +1,31 @@
 import type { Coords } from "./Screen";
 
+/**
+ * A pixel buffer is a buffer that stores the pixels of an image.
+ */
 export class PixelBuffer extends Uint8Array {
   width: number;
   height: number;
+
+  /**
+   * Creates an instance of PixelBuffer.
+   * @param width
+   * @param height
+   */
   constructor(width: number, height: number) {
     super(width * height);
     this.width = width;
     this.height = height;
   }
 
+  /**
+   * Copy a region of the buffer.
+   *
+   * @param coords
+   * @param width
+   * @param height
+   * @returns
+   */
   public copy(coords: Coords, width: number, height: number): PixelBuffer {
     const [x, y] = coords;
 
@@ -25,6 +42,12 @@ export class PixelBuffer extends Uint8Array {
     return buffer;
   }
 
+  /**
+   * Paste a buffer into the buffer.
+   *
+   * @param coords
+   * @param buffer
+   */
   public paste(coords: Coords, buffer: PixelBuffer) {
     const [x, y] = coords;
 
@@ -37,16 +60,33 @@ export class PixelBuffer extends Uint8Array {
     }
   }
 
+  /**
+   * Get the pixel at the specified coordinates.
+   *
+   * @param coords
+   * @returns
+   */
   public getPixel(coords: Coords): number {
     const [x, y] = coords;
     return this[y * this.width + x];
   }
 
+  /**
+   * Set the pixel at the specified coordinates.
+   * @param coords
+   * @param value
+   */
   public setPixel(coords: Coords, value: number) {
     const [x, y] = coords;
     this[y * this.width + x] = value;
   }
 
+  /**
+   * Fill the buffer with a value.
+   *
+   * @param direction
+   * @returns
+   */
   public rotate(direction: "left" | "right") {
     const buffer = new PixelBuffer(this.height, this.width);
     for (let y = 0; y < this.height; y++) {
@@ -62,6 +102,12 @@ export class PixelBuffer extends Uint8Array {
     return buffer;
   }
 
+  /**
+   * Flip the buffer.
+   *
+   * @param direction
+   * @returns
+   */
   public flip(direction: "horizontal" | "vertical") {
     const buffer = new PixelBuffer(this.width, this.height);
     for (let y = 0; y < this.height; y++) {
@@ -77,6 +123,12 @@ export class PixelBuffer extends Uint8Array {
     return buffer;
   }
 
+  /**
+   * Scale the buffer.
+   *
+   * @param factor
+   * @returns
+   */
   public scale(factor: number) {
     if (factor % 1 !== 0) {
       return this;

@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "main": "src/main.ts",
   "scripts": {
-    "test": "vitest --environment jsdom"
+    "test": "vitest",
+    "docs": "typedoc --plugin typedoc-plugin-missing-exports",
+    "docs:serve": "http-server docs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "canvas": "^3.1.0",
-    "jsdom": "^26.0.0",
+    "http-server": "^14.1.1",
+    "typedoc": "^0.27.9",
+    "typedoc-plugin-missing-exports": "^3.1.0",
     "vitest": "^3.0.6"
   }
 }

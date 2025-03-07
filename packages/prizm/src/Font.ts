@@ -1,3 +1,12 @@
+/**
+ * Configuration options for defining a font.
+ *
+ * @interface FontOptions
+ * @property {string} name - The name of the font.
+ * @property {number} characterWidth - The width of each character in the font in pixels.
+ * @property {number} characterHeight - The height of each character in the font in pixels.
+ * @property {[number, number, number, number]} [margin] - Optional margins [top, right, bottom, left] around each character in pixels.
+ */
 export type FontOptions = {
   name: string;
   characterWidth: number;
@@ -5,8 +14,18 @@ export type FontOptions = {
   margin?: [number, number, number, number];
 };
 
+/**
+ * A font character is a collection of booleans that represent the pixels of a character.
+ *
+ * @type {FontCharacter}
+ */
 export type FontCharacter = boolean[];
 
+/**
+ * A font is a collection of characters that can be drawn on the screen.
+ *
+ * @class Font
+ */
 export class Font {
   private width: number;
   private height: number;
@@ -14,6 +33,13 @@ export class Font {
   characteWidth: number;
   characterHeight: number;
   margin: { top: number; right: number; bottom: number; left: number };
+
+  /**
+   * Creates an instance of Font.
+   *
+   * @param {HTMLImageElement} image - The image containing the font.
+   * @param {FontOptions} options - The options for the font.
+   */
   constructor(image: HTMLImageElement, options: FontOptions) {
     this.width = image.width;
     this.height = image.height;
@@ -73,6 +99,12 @@ export class Font {
     this.characters = characters;
   }
 
+  /**
+   * Get a character from the font.
+   *
+   * @param {number} char - The character to get.
+   * @returns {FontCharacter} The character.
+   */
   public getCharacter(char: number): FontCharacter {
     return this.characters[char];
   }

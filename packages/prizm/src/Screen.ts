@@ -6,6 +6,11 @@ import { Colors } from "./Colors";
 import { PixelBuffer } from "./PixelBuffer";
 import { AttributeBuffer } from "./AttributeBuffer";
 
+/**
+ * The options for the screen.
+ *
+ * @interface ScreenOptions
+ */
 export type ScreenOptions = {
   width: number;
   height: number;
@@ -18,10 +23,23 @@ export type ScreenOptions = {
   defaultInkColor?: Palette;
 };
 
-export type Direction = "abToPb" | "pbToAb" | "abToAb" | "pbToPb";
+/**
+ * The direction of the conversion.
+ *
+ * @type {Direction}
+ */
+type Direction = "abToPb" | "pbToAb" | "abToAb" | "pbToPb";
 
-export type Coords = [x: number, y: number];
+/**
+ * The coordinates of a pixel.
+ *
+ * @type {Coords}
+ */
+type Coords = [x: number, y: number];
 
+/**
+ * The screen class is used to draw to the screen.
+ */
 export class Screen {
   readonly elementWidth: number;
   readonly elementHeight: number;
@@ -41,6 +59,12 @@ export class Screen {
   public loading = new Set<string>();
   private imageData: ImageData;
 
+  /**
+   * Creates an instance of Screen.
+   *
+   * @param canvas
+   * @param options
+   */
   constructor(canvas: HTMLCanvasElement, options: ScreenOptions) {
     if (options.targetFps) {
       this.targetFps = options.targetFps;
@@ -84,6 +108,9 @@ export class Screen {
     );
   }
 
+  /**
+   * Clear the screen.
+   */
   public randomizeInkPaper() {
     for (let y = 0; y < this.pixelBuffer.height / this.elementHeight; y++) {
       for (let x = 0; x < this.pixelBuffer.width / this.elementWidth; x++) {
@@ -97,10 +124,18 @@ export class Screen {
     }
   }
 
+  /**
+   * Clear the screen.
+   */
   public addFont(name: string, font: Font) {
     this.fonts.set(name, font);
   }
 
+  /**
+   * Load a font.
+   * @param src
+   * @param options
+   */
   public loadFont(src: string, options: FontOptions) {
     this.loading.add(src);
     const image = new Image();
@@ -114,18 +149,31 @@ export class Screen {
     };
   }
 
+  /**
+   * Set the ink color.
+   *
+   * @param color
+   */
   public setInkColor(color: Palette) {
     this.inkColor = color;
   }
 
+  /**
+   * Set the paper color.
+   *
+   * @param color
+   */
   public setPaperColor(color: Palette) {
     this.paperColor = color;
   }
 
-  static getColors() {
-    return Colors;
-  }
-
+  /**
+   * Set the cursor position.
+   *
+   * @param coords
+   * @param direction
+   * @returns
+   */
   convertCoordsToCoords(coords: Coords, direction: Direction): Coords {
     switch (direction) {
       case "abToPb":
@@ -140,6 +188,13 @@ export class Screen {
     }
   }
 
+  /**
+   * Convert coordinates to an index.
+   *
+   * @param coords
+   * @param direction
+   * @returns
+   */
   convertCoordsToIndex(coords: Coords, direction: Direction): number {
     switch (direction) {
       case "pbToPb":
@@ -149,6 +204,9 @@ export class Screen {
     }
   }
 
+  /**
+   * Reset the screen.
+   */
   private reset() {
     // Reset the screen
     this.inkColor = this.defaultInkColor;
@@ -158,7 +216,10 @@ export class Screen {
     this.attributeBuffer.fill([this.defaultPaperColor, this.defaultInkColor]);
   }
 
-  render() {
+  /**
+   * Render the screen.
+   */
+  public render() {
     if (!this.context) {
       throw new Error("Unable to get 2d context");
     }
@@ -186,3 +247,5 @@ export class Screen {
     this.reset();
   }
 }
+
+export type { Coords, Direction };

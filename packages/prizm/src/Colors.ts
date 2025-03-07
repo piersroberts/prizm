@@ -1,5 +1,8 @@
 import { Palette } from "./Palette";
 
+/**
+ * A mapping of palette colors to their RGB values.
+ */
 export const Colors: Record<Palette, [number, number, number]> = {
   [Palette.BLACK]: [0x00, 0x00, 0x00],
   [Palette.BLUE]: [0x00, 0x00, 0xff],

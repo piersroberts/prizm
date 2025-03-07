@@ -1,5 +1,6 @@
 {
   "name": "prizm",
+  "license": "MIT",
   "workspaces": [
     "./packages/*",
     "./apps/*"

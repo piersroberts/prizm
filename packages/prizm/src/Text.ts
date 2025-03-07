@@ -5,18 +5,26 @@ export type TextOptions = {
   align?: "left" | "center" | "right";
 };
 
+/**
+ * A class for writing text to the screen.
+ */
 export class Text {
   cursor: [x: number, y: number];
   screen: Screen;
+  /**
+   * Create a new Text object
+   *
+   * @param screen - The screen to write text to
+   */
   constructor(screen: Screen) {
     this.cursor = [0, 0];
     this.screen = screen;
   }
 
   /**
-   * Set the text cursor position to a spot on the attribute buffer
-   * @param x
-   * @param y
+   * Set the text cursor to a specific position
+   *
+   * @param coords - The new cursor position
    */
   public setCursor(coords: Coords) {
     this.cursor = coords;
@@ -24,8 +32,8 @@ export class Text {
 
   /**
    * Move the text cursor by a certain amount on the attribute buffer
-   * @param x
-   * @param y
+   * @param x - The amount to move the cursor on the x-axis
+   * @param y - The amount to move the cursor on the y-axis
    */
   public moveCursor(x: number, y: number) {
     this.cursor[0] += x;
