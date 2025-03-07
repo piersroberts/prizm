@@ -1,9 +1,11 @@
 {
-  "name": "@prizm/prizm",
+  "name": "@prizmjs/prizm",
+  "description": "Build retro games with ZX Spectrum style graphics",
   "version": "1.0.0",
   "main": "./dist/main.cjs",
   "module": "./dist/main.mjs",
   "type": "module",
+  "files": ["dist"],
   "exports": {
     "types": "./dist/main.d.ts",
     "import": "./dist/main.js",
@@ -14,12 +16,12 @@
     "docs": "typedoc --plugin typedoc-plugin-missing-exports",
     "docs:serve": "http-server docs",
     "build": "tsup",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepare": "npm run clean && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "http-server": "^14.1.1",
     "tsup": "^8.4.0",
@@ -27,5 +29,9 @@
     "typedoc-plugin-missing-exports": "^3.1.0",
     "typescript": "^5.8.2",
     "vitest": "^3.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/piersroberts/prizm.git"
   }
 }
