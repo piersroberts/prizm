@@ -1,7 +1,7 @@
 {
   "name": "@prizmjs/prizm",
   "description": "Build retro games with ZX Spectrum style graphics",
-  "version": "1.0.0",
+  "version": "0.0.0-alpha",
   "main": "./dist/main.cjs",
   "module": "./dist/main.mjs",
   "type": "module",
