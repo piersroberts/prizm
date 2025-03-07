@@ -39,6 +39,7 @@ export class Screen {
   public inkColor = this.defaultInkColor;
   public paperColor = this.defaultPaperColor;
   public loading = new Set<string>();
+  private imageData: ImageData;
 
   constructor(canvas: HTMLCanvasElement, options: ScreenOptions) {
     if (options.targetFps) {
@@ -56,6 +57,9 @@ export class Screen {
     canvas.width = options.width;
     canvas.height = options.height;
     this.context = canvas.getContext("2d");
+    if (!this.context) {
+      throw new Error("Unable to get 2d context");
+    }
 
     this.defaultInkColor =
       typeof options.defaultInkColor === "number"
@@ -73,6 +77,11 @@ export class Screen {
     this.attributeBuffer = new AttributeBuffer(this);
     this.text = new Text(this);
     this.gfx = new Graphics(this);
+
+    this.imageData = this.context.createImageData(
+      this.pixelBuffer.width,
+      this.pixelBuffer.height,
+    );
   }
 
   public randomizeInkPaper() {
@@ -99,6 +108,9 @@ export class Screen {
     image.onload = () => {
       this.loading.delete(src);
       this.addFont(options.name, new Font(image, options));
+    };
+    image.onerror = () => {
+      throw new Error("Unable to load font");
     };
   }
 
@@ -151,6 +163,8 @@ export class Screen {
       throw new Error("Unable to get 2d context");
     }
 
+    const data = this.imageData.data;
+
     for (let y = 0; y < this.pixelBuffer.height; y++) {
       for (let x = 0; x < this.pixelBuffer.width; x++) {
         const index = this.convertCoordsToIndex([x, y], "pbToPb");
@@ -158,12 +172,17 @@ export class Screen {
         const attributeCoords = this.convertCoordsToCoords([x, y], "pbToAb");
 
         const [paper, ink] = this.attributeBuffer.get(attributeCoords);
-        const rgb = color === 0 ? Colors[paper] : Colors[ink];
+        const [r, g, b] = color === 0 ? Colors[paper] : Colors[ink];
 
-        this.context.fillStyle = rgb;
-        this.context.fillRect(x, y, 1, 1);
+        const i = index * 4;
+        data[i] = r;
+        data[i + 1] = g;
+        data[i + 2] = b;
+        data[i + 3] = 0xff; // Alpha
       }
     }
+
+    this.context.putImageData(this.imageData, 0, 0);
     this.reset();
   }
 }

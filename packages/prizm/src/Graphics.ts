@@ -28,31 +28,31 @@ export class Graphics {
     this.screen.pixelBuffer[index] = color;
 
     const attributeCoords = this.screen.convertCoordsToCoords(coords, "pbToAb");
-
     const attributePixelCoords = this.screen.convertCoordsToCoords(
       attributeCoords,
       "abToPb",
     );
 
     const attribute = this.screen.attributeBuffer.get(attributeCoords);
+
     const attributeRegionPixels = this.screen.pixelBuffer.copy(
       attributePixelCoords,
       this.screen.elementWidth,
       this.screen.elementHeight,
     );
 
-    // Check if all pixels are the same
+    // Cache first pixel and optimize check for all same pixels
+    const firstPixel = attributeRegionPixels[0];
     const allSame = attributeRegionPixels.every(
-      (pixel) => pixel === attributeRegionPixels[0],
+      (pixel) => pixel === firstPixel,
     );
-    // debugger;
 
-    // If all pixels are the same, set the attribute pixel color set all pixels to 0
+    // // If all pixels are the same, set all to 0
     if (allSame) {
       attributeRegionPixels.fill(0);
     }
 
-    // set attribute pixel color
+    // Set attribute pixel color
     this.screen.attributeBuffer.set(
       attributeCoords,
       allSame ? attribute[1] : attribute[0],
