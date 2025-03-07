@@ -1,6 +1,6 @@
 import "./style.css";
 
-import { Screen, Palette } from "@prizm/prizm";
+import { Screen, Palette } from "@prizmjs/prizm";
 
 const canvas = document.getElementById("screen") as HTMLCanvasElement;
 canvas.onclick = () => {
