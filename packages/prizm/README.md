@@ -9,7 +9,9 @@ npm install @prizm/prizmjs
 ## Usage
 
 ```javascript
-import { Screen, Palette } from "@prizmjs/prizm";
+import { Screen } from "@prizmjs/prizm";
+
+const screen = new Screen();
 
 function loop(f: number) {
     screen.gfx.drawLine(
