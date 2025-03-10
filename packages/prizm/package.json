@@ -12,6 +12,7 @@
     "require": "./dist/main.cjs"
   },
   "scripts": {
+    "dev": "tsup --watch",
     "test": "vitest",
     "docs": "typedoc --plugin typedoc-plugin-missing-exports",
     "docs:serve": "http-server docs",

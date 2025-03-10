@@ -5,6 +5,7 @@ import { Text } from "./Text";
 import { Colors } from "./Colors";
 import { PixelBuffer } from "./PixelBuffer";
 import { AttributeBuffer } from "./AttributeBuffer";
+import { Input } from "./Input";
 
 /**
  * The options for the screen.
@@ -28,14 +29,14 @@ export type ScreenOptions = {
  *
  * @type {Direction}
  */
-type Direction = "abToPb" | "pbToAb" | "abToAb" | "pbToPb";
+export type Direction = "abToPb" | "pbToAb" | "abToAb" | "pbToPb";
 
 /**
  * The coordinates of a pixel.
  *
  * @type {Coords}
  */
-type Coords = [x: number, y: number];
+export type Coords = [x: number, y: number];
 
 /**
  * The screen class is used to draw to the screen.
@@ -47,13 +48,14 @@ export class Screen {
   private context: CanvasRenderingContext2D | null;
   readonly pixelBuffer: PixelBuffer;
   readonly attributeBuffer: AttributeBuffer;
+  readonly input: Input;
   readonly palette: typeof Palette;
   readonly fonts: Map<string, Font> = new Map();
   public gfx: Graphics;
   public text: Text;
   public lastFrame = 0;
   public defaultPaperColor = Palette.WHITE;
-  public defaultInkColor = Palette.BRIGHT_BLACK;
+  public defaultInkColor = Palette.BLACK;
   public inkColor = this.defaultInkColor;
   public paperColor = this.defaultPaperColor;
   public loading = new Set<string>();
@@ -101,6 +103,7 @@ export class Screen {
     this.attributeBuffer = new AttributeBuffer(this);
     this.text = new Text(this);
     this.gfx = new Graphics(this);
+    this.input = new Input();
 
     this.imageData = this.context.createImageData(
       this.pixelBuffer.width,
@@ -247,5 +250,3 @@ export class Screen {
     this.reset();
   }
 }
-
-export type { Coords, Direction };

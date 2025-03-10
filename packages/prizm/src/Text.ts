@@ -77,13 +77,7 @@ export class Text {
           this.cursor[0] = 0;
           this.cursor[1]++;
         }
-        this.screen.gfx.drawCharacter(
-          font.characters[character.charCodeAt(0)],
-          this.cursor[0] * font.characteWidth,
-          this.cursor[1] * font.characterHeight,
-          font.characteWidth,
-          font.characterHeight,
-        );
+        this.putCharacter(character);
 
         this.cursor[0]++;
       }
@@ -100,5 +94,19 @@ export class Text {
     this.write(text, options);
     this.cursor[0] = 0;
     this.cursor[1]++;
+  }
+
+  public putCharacter(character: string) {
+    const font = this.screen.fonts.get("cga");
+    if (!font) {
+      throw new Error("Font not found");
+    }
+    this.screen.gfx.drawCharacter(
+      font.characters[character.charCodeAt(0)],
+      this.cursor[0] * font.characteWidth,
+      this.cursor[1] * font.characterHeight,
+      font.characteWidth,
+      font.characterHeight,
+    );
   }
 }
