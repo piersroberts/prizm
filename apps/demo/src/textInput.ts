@@ -11,7 +11,7 @@ export const textInput = (screen: Screen) => {
     position: [0, 0] as Coords,
     currentSpeed: 0,
 
-    moveLeft(frame: number) {
+    moveLeft(_frame: number) {
       // Accelerate to the left while the key is held down then decelerate
       // when the key is released
       if (this.currentSpeed < MAX_SPEED) {

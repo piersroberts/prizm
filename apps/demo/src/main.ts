@@ -1,4 +1,4 @@
-import { colorBars } from "./colorBars";
+// import { colorBars } from "./colorBars";
 import { textInput } from "./textInput";
 
 import "./style.css";
