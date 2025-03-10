@@ -14,10 +14,10 @@
   "scripts": {
     "dev": "tsup --watch",
     "test": "vitest",
-    "docs": "typedoc --plugin typedoc-plugin-missing-exports",
-    "docs:serve": "http-server docs",
+    "docs": "npm run clean && npm run build && typedoc --plugin typedoc-plugin-missing-exports --out docs/prizm/docs",
+    "docs:serve": "http-server docs/prizm/docs",
     "build": "tsup",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist docs",
     "prepare": "npm run clean && npm run build"
   },
   "keywords": [],
