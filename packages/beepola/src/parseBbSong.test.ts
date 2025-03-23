@@ -8,6 +8,8 @@ describe("Parser module", () => {
   it("should parse a project", () => {
     const parsedSong = parseBbSong(song);
     expect(parsedSong).toBeDefined();
+
+    console.log(parsedSong);
     expect(parsedSong?.infoChunk?.songTitle?.value).toEqual("Chuck Rock");
   });
 });

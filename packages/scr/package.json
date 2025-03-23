@@ -1,0 +1,23 @@
+{
+  "name": "@prizmjs/scr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "compile": "tsup scripts/compileStruct.ts --onSuccess 'node dist/compileStruct.js'",
+    "clean": "rm -rf dist generated"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "js-yaml": "^4.1.0",
+    "kaitai-struct-compiler": "^0.10.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  },
+  "dependencies": {
+    "kaitai-struct": "^0.10.0"
+  }
+}
